@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
+require("dotenv").config();
 
 const homeStartingContent =
   "Hey guys welcome to our blog website. Here you will get awesome content related to programming and development.";
@@ -16,13 +17,10 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-mongoose.connect(
-  "mongodb+srv://deeksha:deeksha123@cluster0.093b0dl.mongodb.net/?retryWrites=true&w=majority/blogDB",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const postSchema = {
   title: String,
